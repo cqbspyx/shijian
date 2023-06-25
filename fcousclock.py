@@ -1,17 +1,16 @@
 # shijian
+import requests
 import time
 
-def focus_timer(minutes):
-    seconds = minutes * 60
-    start_time = time.time()
-    end_time = start_time + seconds
+def keep_active():
+    while True:
+        print("保持活跃中...")
+        # 执行活跃度操作，发送GET请求
+        response = requests.get("https://www.github.com")
+        if response.status_code == 200:
+            print("请求成功")
+        else:
+            print("请求失败")
+        time.sleep(600)  # 每隔60秒执行一次活跃度操作
 
-    while time.time() < end_time:
-        remaining_seconds = int(end_time - time.time())
-        minutes = remaining_seconds // 60
-        seconds = remaining_seconds % 60
-        timer_display = f"{minutes:02d}:{seconds:02d}"
-        print(f"Time remaining: {timer_display}", end="\r")
-        time.sleep(1)
-
-    print("\nTime's up! Stay focused!")
+keep_active()
